@@ -38,6 +38,8 @@ export default gql`
   type Query {
     getAllTasks: [Task]
     getTask(id: ID!): Task
+    getMyDayTasks: [Task]
+    getTaskBySearch(title: String!): [Task]
   }
   type Mutation {
     createTask(task: TaskInput): Task

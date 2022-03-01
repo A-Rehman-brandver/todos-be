@@ -14,6 +14,7 @@ async function startServer() {
   const apolloServer = new ApolloServer({
     typeDefs,
     resolvers,
+    playground: true,
   })
 
   await apolloServer.start() //its optional but do this because its loaded all your schemas and if any error so its throw the error before connect to the port

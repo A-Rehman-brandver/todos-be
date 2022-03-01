@@ -6,7 +6,7 @@ export const tasksResolvers = {
     getAllTasks: async () => {
       try {
         // throw new ValidationError("Not Found")
-        return await (await Task.find({})).reverse()
+        return (await Task.find({})).reverse()
       } catch (error) {
         console.log(error)
       }
@@ -15,6 +15,24 @@ export const tasksResolvers = {
       const { id } = args
       try {
         return await Task.findById(id)
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    getMyDayTasks: async () => {
+      try {
+        return await Task.find({ isMyDay: true })
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    getTaskBySearch: async (parent, args, context, info) => {
+      const { title } = args
+      try {
+        let tasks = await Task.find({
+          $and: [{ title: { $regex: title, $options: "$i" } }],
+        })
+        return tasks
       } catch (error) {
         console.log(error)
       }
